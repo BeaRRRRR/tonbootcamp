@@ -1,3 +1,35 @@
 {
-  "extends": "next/core-web-vitals"
+  "extends": ["next/core-web-vitals", "airbnb", "airbnb-typescript"],
+  "parserOptions": {
+    "project": "./tsconfig.json"
+  },
+  "rules": {
+    "@typescript-eslint/semi": ["warn","never"],
+    "import/prefer-default-export": 0,
+    "import/no-named-as-default": 0,
+    "react/require-default-props": 0,
+    "react/button-has-type": 0,
+    "react/react-in-jsx-scope": "off",
+    "jsx-a11y/label-has-associated-control": 0,
+    "react/function-component-definition": [
+      2,
+      {
+        "namedComponents": "arrow-function",
+        "unnamedComponents": "arrow-function"
+      }
+    ],
+    "react/jsx-props-no-spreading": "off",
+    "react/no-unused-prop-types": 1,
+    "no-confusing-arrow": "off",
+    "jsx-a11y/no-static-element-interactions":0,
+    "jsx-a11y/click-events-have-key-events": 0,
+    "implicit-arrow-linebreak": "off",
+    "@typescript-eslint/comma-dangle": ["warn","never"],
+    "arrow-body-style": ["error", "as-needed"],
+    "max-len": 0,
+    // may remove
+    "react/no-unknown-property": 0,
+    "react/prop-types": "off",
+    "consistent-return": "warn"
+  }
 }

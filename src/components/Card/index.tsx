@@ -18,7 +18,7 @@ export default function Card({ name, work, about, imgUrl } : Props) {
                   <header>
                     <div className="flex mb-2">
                       <a className="relative inline-flex items-start mr-5" href="#0">
-                        <Image className="rounded-full" src={imgUrl} width="64" height="64" alt="User Image" />
+                        <img className="rounded-full" src="https://i.imgur.com/R6YToBk.jpeg" width="64" height="64" alt="User Image" />
                       </a>
                       <div className="mt-1 pr-1">
                         <a className="inline-flex text-gray-800 hover:text-gray-900" href="#0">

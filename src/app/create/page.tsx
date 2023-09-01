@@ -4,15 +4,23 @@ import { PhotoIcon, UserCircleIcon } from '@heroicons/react/24/solid'
 import { v4 as uuid } from 'uuid'
 import Link from 'next/link'
 import { useForm } from 'react-hook-form'
+import { useTonAddress, useTonConnectUI } from '@tonconnect/ui-react'
+import { beginCell, storeStateInit } from 'ton-core'
+import { useTonConnect } from '@/contract/useTonConnect'
+import { useTonClient } from '@/contract/useTonClient'
+import { deployContract } from '@/contract/useNftContract'
+import { redirect } from 'next/navigation'
 
 export default function Create() {
   const { register, handleSubmit } = useForm()
-  const userFriendlyAddress = useTonAddress();
+  const address = useTonAddress();
+  const { sender } = useTonConnect()
+    const client = useTonClient()
 
   async function onSubmit(data, e) {
     e.preventDefault()
     const formData = new FormData()
-    const filename = `${uuid()}.png`
+    const filename = `${uuid()}`
     formData.append(filename, data.picture[0])
 
     const fileUrl = `https://filebin.net/tonbootcamp/${filename}`
@@ -23,7 +31,8 @@ export default function Create() {
     const json = await resp.json()
     console.log(data, json)
 
-    const upload = await fetch(`https://api.jsonbin.io/v3/b/64f14f498d92e126ae658a93`, {
+    const uploadUrl = `https://api.jsonbin.io/v3/b/64f14f498d92e126ae658a93` 
+    const upload = await fetch(uploadUrl, {
       method: 'PUT',
       headers: {
         "Content-Type": "application/json"
@@ -37,7 +46,10 @@ export default function Create() {
     })
     const uploadedJson = await upload.json()
     console.log(uploadedJson)
+    
+    await deployContract(client, address, sender, uploadUrl)
 
+    redirect('/')
   }
 
   return (
